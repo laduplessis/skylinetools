@@ -1,0 +1,6 @@
+<addon name="skylinetools" version="0.1.0">
+            <depends on="BEAST" atleast="2.5.0"/>
+
+            <!-- Add other dependencies as necessary. -->
+            </addon>
+        
