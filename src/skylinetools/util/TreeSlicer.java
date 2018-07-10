@@ -40,7 +40,7 @@ public class TreeSlicer extends RealParameter {
                      EQUIDISTANT   = 2,
                      DATES         = 3;
 
-    final double eps = 1e-6;
+    final double eps = 1e-7;
 
     public Input<Tree> treeInput =
             new Input<>("tree", "Tree over which to calculate the slice", Input.Validate.REQUIRED);
@@ -151,7 +151,7 @@ public class TreeSlicer extends RealParameter {
 
         calculateTimes(tree);
 
-        System.out.println(this.ID+"\t"+this.getDimension());
+        // System.out.println(this.ID+"\t"+this.getDimension());
 
         // Initialization accounting (not really used)
         // Don't want to use super.initAndValidate() because we're doing something else with the values

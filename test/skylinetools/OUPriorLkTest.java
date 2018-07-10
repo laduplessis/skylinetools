@@ -6,6 +6,10 @@ import org.junit.Test;
 import skylinetools.distributions.OUPrior;
 import test.beast.BEASTTestCase;
 
+/**
+ * @author Louis du Plessis
+ *         Date: 2018/07/09
+ */
 public class OUPriorLkTest extends TestCase {
 
 
