@@ -7,6 +7,12 @@ import beast.core.Loggable;
 
 import java.io.PrintStream;
 
+/**
+ *
+ * @author Louis du Plessis
+ *         Date: 2018/02/12
+ *
+ */
 public class TreeSliceDateLogger extends CalculationNode implements Loggable, Function {
 
     final public Input<TreeSlicer> treeSliceInput =

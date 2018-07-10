@@ -29,6 +29,9 @@ import java.util.List;
  *
  * Add flag to limit the biggest interval time to tmrca?
  *
+ * @author Louis du Plessis
+ *         Date: 2018/02/12
+ *
  */
 public class TreeSlicer extends RealParameter {
 
