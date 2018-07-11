@@ -1,4 +1,4 @@
-package skylinetools;
+package skylinetools.utils;
 
 import beast.evolution.tree.Tree;
 import beast.util.TreeParser;
@@ -179,7 +179,7 @@ public class TreeSlicerTest extends TestCase {
 
         System.out.println("TreeSlicer: Equidistant between present and oldest sample (tree 2)");
 
-        Tree tree = new TreeParser("((((D4Mexico84:5,D4ElSal94:15):1,D4PRico86:8):1,D4Tahiti79:2):5,D4Indon77:5);",false);
+        Tree tree = new TreeParser("((((D4Mexico84:5,D4ElSal94:15):1,D4PRico86:8):1,D4Tahiti79:2):5,D4Indon77:6);",false);
 
         TreeSlicer treeSlicer = new TreeSlicer();
         treeSlicer.initByName("tree",tree,"stop","oldestSample","includeLast","true","dimension","5");
@@ -187,12 +187,12 @@ public class TreeSlicerTest extends TestCase {
         /*   tmrca = 17 / 1977, most recent tip = 1994
 
              4 intervals:
-                17/4 = 4.25
-                (0.0, 7.334, 14.667, 22)
+                16/4 = 4
+                (0.0, 4, 8, 12, 16)
          */
 
         Double [] values = treeSlicer.getValues();
-        Double [] expected = {0.0, 4.25, 8.5, 12.75, 17.0};
+        Double [] expected = {0.0, 4.0, 8.0, 12.0, 16.0};
 
         for (int i = 0; i < values.length; i++) {
             //System.out.print(values[i]+"\t");

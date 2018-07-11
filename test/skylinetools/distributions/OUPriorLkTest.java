@@ -1,4 +1,4 @@
-package skylinetools;
+package skylinetools.distributions;
 
 import beast.core.parameter.RealParameter;
 import junit.framework.TestCase;
