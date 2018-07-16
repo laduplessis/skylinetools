@@ -1,0 +1,32 @@
+<beast version='2.0'
+       namespace='beast.core:beast.evolution.speciation:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.math.distributions:beast.evolution.branchratemodel:beast.evolution.likelihood:beast.core.parameter:skylinetools.distributions'>
+
+    <!-- Test XML for the Ornstein-Uhlenbeck prior -->
+
+    <parameter spec="BooleanParameter" id="mask" value="0 1 1 1 1 1 1 1 1 1"/>
+
+    <run spec="MCMC" id="mcmc" chainLength="1000000"> <!--autoOptimize="true"-->
+        <state>
+            <input name='stateNode' idref='x'/>
+            <input name='stateNode' idref='mask'/>
+        </state>
+
+        <distribution spec="CompoundDistribution" id="posterior">
+            <distribution spec="OUPrior" id="ouprior">
+                <parameter spec='RealParameter' name='x' id='x' dimension="10" value="10 1 1 1 1 1 1 1 1 1"/>
+                <parameter spec='RealParameter' name='times' id='t' dimension="10" value="0 1 2 3 4 5 6 7 8 9"/>
+                <parameter spec='RealParameter' name='mean' id='mu' dimension="1" value="3"/>
+                <parameter spec='RealParameter' name='sigma' id='sigma' dimension="1" value="1"/>
+                <parameter spec='RealParameter' name='nu' id='nu' dimension="1" value="0.1"/>                
+            </distribution>
+        </distribution>
+
+        <operator id='scaler' spec='ScaleOperator' scaleFactor=".75" weight="1" parameter="@x" indicator="@mask"/>
+
+        <logger logEvery="1000" fileName="ouprior_test1.log">
+            <log idref="ouprior"/>
+            <log idref="x"/>
+        </logger>
+    </run>
+
+</beast>
