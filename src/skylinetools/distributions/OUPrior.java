@@ -13,6 +13,11 @@ import java.util.Random;
 /**
  * Implementation of the Ornstein-Uhlenbeck probability density for use as a prior on a sequence of (x_i,t_i) pairs.
  *
+ * TODO:
+ *  - Check that dimension of timeInput and xInput match
+ *  - Add constant to likelihood calculation
+ *  - Should sample method be implemented? Shouldn't be too difficult, but this is never used
+ *
  * @author Alexei Drummond.
  */
 public class OUPrior extends Distribution {
