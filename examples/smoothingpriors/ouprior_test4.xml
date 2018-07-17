@@ -32,7 +32,7 @@
             </distribution>          
 
             <prior id="sigmaPrior" name="distribution" x="@sigma">                      
-                <Normal name="distr" mean="0.1" sigma="0.1" offset="0.0"/>
+                <Normal name="distr" mean="0.3" sigma="0.1" offset="0.0"/>
             </prior>
 
             <prior id="nuPrior" name="distribution" x="@nu">                      
