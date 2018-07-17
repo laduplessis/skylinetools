@@ -11,16 +11,18 @@
 
         <distribution spec="CompoundDistribution" id="posterior">
             <distribution spec="OUPrior" id="ouprior">
-                <parameter spec='RealParameter' name='x' id='x' dimension="10" value="20"/>
+                <parameter spec='RealParameter' name='x' id='x' dimension="10" value="1"/>
                 <parameter spec='RealParameter' name='times' id='t' dimension="10" value="0 1 2 3 4 5 6 7 8 9"/>
-                <parameter spec='RealParameter' name='mean' id='mu' dimension="1" value="20"/>
+                <parameter spec='RealParameter' name='mean' id='mu' dimension="1" value="3"/>
                 <parameter spec='RealParameter' name='sigma' id='sigma' dimension="1" value="1"/>
                 <parameter spec='RealParameter' name='nu' id='nu' dimension="1" value="0.1"/>
-                <distribution spec='beast.math.distributions.Uniform' name="x0Prior" lower="20" upper="22"/>
+                <distribution spec='Exponential' name="x0Prior" mean="0.1"/>
             </distribution>
         </distribution>
 
-        <operator id='scaler' spec='ScaleOperator' scaleFactor=".75" weight="1" parameter="@x"/>
+        <!--operator id='scaler' spec='ScaleOperator' scaleFactor=".75" weight="1" parameter="@x"/-->
+        <operator id='scaler' spec='RealRandomWalkOperator' weight="1" windowSize="1" useGaussian="true" parameter="@x"/>
+
 
         <logger logEvery="1000" fileName="ouprior_test2.log">
             <log idref="ouprior"/>
