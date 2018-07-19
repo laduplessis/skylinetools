@@ -9,7 +9,14 @@
 
 ### 1.2. OUPrior examples
 
-1. `HCV`: Egyptian HCV dataset (contemporaneous sampling only), with proportional times (between 0 and 1). OUPrior on reproductive number only.
+**With OUPrior**
+
+1. `hcv_bdsky_ouprior.xml`: Egyptian HCV dataset (contemporaneous sampling only), with relative times (between 0 and 1). OUPrior on reproductive number with dimension 40.
+2. Serial sampling and real times (Ebola)
+
+**Comparison xml files (without OUPrior)**
+
+1. `hcv_bdsky.xml`: Egyptian HCV dataset (contemporaneous sampling only), reproductive number with dimension 40.
 
 
 
