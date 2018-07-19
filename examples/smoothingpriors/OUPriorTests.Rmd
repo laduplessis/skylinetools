@@ -2,7 +2,11 @@
 title: "Ornstein-Uhlenbeck smoothing prior tests"
 author: "Louis du Plessis"
 date: "7/19/2018"
-output: html_document
+output: 
+  html_document:
+    keep_md: true
+    theme: paper
+    self_contained: false
 ---
 
 Tests to check that the OU-prior implemented in BEAST2 is correct. In particular checking that sampling trajectories in BEAST2 with MCMC produces the correct theoretical distribution as well as the same distribution as simulating trajectories using the analytical solution (when drawing parameter values from prior distributions). Additionally, also test the ability of the BEAST2 implementation to estimate parameter values given a trajectory. 
