@@ -16,6 +16,11 @@ Package of useful utilities and distributions to use with skyline models in BEAS
 - *Parameters*
 	- **RealParameterSequence**
 
+	
+	
+---
+_Louis du Plessis, 2018_
+
 
 
 
