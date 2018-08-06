@@ -6,6 +6,7 @@ import beast.evolution.tree.TraitSet;
 import beast.evolution.tree.Tree;
 import beast.util.TreeParser;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class TreeSlicerDatesTest extends TestCase {
 
+    @Test
     public void testSliceTMRCA1() {
 
         System.out.println("TreeSlicer: Slice at specific years (tree 1)");
