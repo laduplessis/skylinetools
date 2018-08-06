@@ -1,4 +1,4 @@
-package skylinetools.utils;
+package skylinetools.util;
 
 import beast.evolution.alignment.Taxon;
 import beast.evolution.alignment.TaxonSet;
@@ -6,7 +6,6 @@ import beast.evolution.tree.TraitSet;
 import beast.evolution.tree.Tree;
 import beast.util.TreeParser;
 import junit.framework.TestCase;
-import skylinetools.util.TreeSlicer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

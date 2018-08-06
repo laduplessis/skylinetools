@@ -1,10 +1,9 @@
-package skylinetools.utils;
+package skylinetools.util;
 
 import beast.evolution.tree.Tree;
 import beast.util.TreeParser;
 import junit.framework.TestCase;
 import org.junit.Test;
-import skylinetools.util.TreeSlicer;
 import test.beast.BEASTTestCase;
 
 /**
