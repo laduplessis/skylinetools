@@ -48,6 +48,9 @@ public class OUPrior extends Distribution {
 
     public Input<Boolean> logSpace = new Input<>("logspace", "true if prior should be applied to log(x).", false);
 
+    public Input<Boolean> normalize = new Input<>("normalize", "true if times should be normalized such that t[n]-t[0]=1..", false);
+
+
     public double calculateLogP() {
 
         double mu = meanInput.get().getValue();
@@ -69,15 +72,27 @@ public class OUPrior extends Distribution {
 
         int n = x.length - 1;
 
+
         double logL = -n/2.0 * Math.log(sigsq / (2.0*nu));
+
+        double period = 1;
+        // Standardize differences between times
+        // (so variance and mean-reversion are not dependent on time-scale)
+        if (normalize.get() == true) {
+            period = t[t.length-1]-t[0];
+        }
+        System.out.println(period);
 
         for (int i = 1; i <= n; i++) {
 
-            double relterm = 1.0-Math.exp(-2.0*nu*(t[i]-t[i-1]));
+            double dt = (t[i]-t[i-1])/period;
+            double relterm = 1.0-Math.exp(-2.0*nu*(dt));
+
+            System.out.println(dt);
 
             logL -= Math.log(relterm)/2.0;
 
-            double term = x[i] - mu - (x[i-1]-mu) * Math.exp(-nu*(t[i]-t[i-1]));
+            double term = x[i] - mu - (x[i-1]-mu) * Math.exp(-nu*(dt));
 
             logL -= nu / sigsq * (term*term / relterm);
         }

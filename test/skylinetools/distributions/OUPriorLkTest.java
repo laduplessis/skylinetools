@@ -81,7 +81,7 @@ public class OUPriorLkTest extends TestCase {
     }
 
     /**
-     * Test that log-likelihood is calculated correctly for a trajectory of points (all equal)
+     * Test that log-likelihood is calculated correctly for a trajectory of points (not all equal)
      */
     @Test
     public void testCalculateLogPTrajectory2() {
@@ -107,6 +107,39 @@ public class OUPriorLkTest extends TestCase {
         likelihood.initByName("x",x,"times",t,"mean",mu,"sigma",sigma,"nu",nu);
 
         double expected = -36.1648364818251; // Calculated in R
+        double result = likelihood.calculateLogP();
+
+        System.out.println(expected+"\t"+result);
+        assertEquals(expected, result, BEASTTestCase.PRECISION);
+    }
+
+    /**
+     * Test that log-likelihood is calculated correctly for a trajectory of points (not all equal + times normalised)
+     */
+    @Test
+    public void testCalculateLogPTrajectory3() {
+
+        System.out.println("OUPrior log-likelihood test (trajectory 3: evolving + times normalised)");
+
+        // Parameters of the OU-process
+        RealParameter x     = new RealParameter();
+        RealParameter t     = new RealParameter();
+        RealParameter mu    = new RealParameter();
+        RealParameter sigma = new RealParameter();
+        RealParameter nu    = new RealParameter();
+
+        // Initialise values
+        x.initByName("value","10 9 8 7 6 5 5 5 5 6 5");
+        t.initByName("value","0 1 2 3 4 5 6 7 8 9 10");
+        mu.initByName("value","5");
+        sigma.initByName("value","1");
+        nu.initByName("value","2");
+
+        // Set up OUPrior instance and evaluate likelihood
+        OUPrior likelihood = new OUPrior();
+        likelihood.initByName("x",x,"times",t,"mean",mu,"sigma",sigma,"nu",nu,"normalize","true");
+
+        double expected = -5.95923005052868; // Calculated in R
         double result = likelihood.calculateLogP();
 
         System.out.println(expected+"\t"+result);
