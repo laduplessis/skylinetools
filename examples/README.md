@@ -45,8 +45,7 @@ Tests to compare the result of using TreeSlicer to obtaining the same or similar
 
 
 ### 2.2  TreeSlicer Examples
-Mexico Zika?
-Ebola?
+
 
 ---
 

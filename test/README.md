@@ -4,9 +4,7 @@ Tests implemented
 
 
 ## TreeSlicer
-Check on two fixed trees of tractable size that slices are correct:
-
-
+- Check on two fixed trees of tractable size that slices are correct.
 
 
 ## OUPrior

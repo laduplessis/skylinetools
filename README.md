@@ -9,13 +9,15 @@ Package of useful utilities and distributions to use with skyline models in BEAS
 
 ## Package contents
 
-- *Smoothing priors*
-	- **Ornstein-Uhlenbeck smoothing prior** 
-- *Utilities*
-	- **TreeSlicer**
 - *Parameters*
-	- **RealParameterSequence**
-
+	- **RealParameterSequence:** Shortcut to create a linear sequence of real numbers with equal increments.
+- *Smoothing priors*
+	- **Brownian-motion smoothing prior:** Time-aware smoothing prior for a skyline parameter based on a Brownian-motion process. (Similar to the GMRF used for the Skyride/Skygrid). 
+	- **Ornstein-Uhlenbeck smoothing prior:** Time-aware smoothing prior for a skyline parameter based on an Ornstein-Uhlenbeck proccess.
+- *Utilities*
+	- **TreeSlicer:** Interface for getting times on a tree.
+	- **TreeSliceDateLogger:** Log dates of treeslice times.
+	- **TreeDateLogger:** Log treeheight or other parameters as dates.
 	
 	
 ---
