@@ -40,25 +40,25 @@ public class TreeSlicerDatesTest extends TestCase {
         dateTrait.initByName("traitname","date","taxa",taxonSet,"value","D4Philip56=1956,"+
                                                                                  "D4Philip64=1964,"+
                                                                                  "D4Philip84=1984,"+
-                                                                                 "D4SLanka78=1979,"+
-                                                                                 "D4Thai78=1979,"+
-                                                                                 "D4Thai84=1985");
+                                                                                 "D4SLanka78=1978,"+
+                                                                                 "D4Thai78=1978,"+
+                                                                                 "D4Thai84=1984");
 
-        tree.initByName("newick","((D4Philip56:3,(D4Philip64:3,D4Philip84:23):7):10,(D4SLanka78:20,(D4Thai78:6,D4Thai84:12):14):15);",
+        tree.initByName("newick","((D4Philip56:2.0,(D4Philip64:3.0,D4Philip84:23.0):7.0):10.0,(D4SLanka78:19.0,(D4Thai78:5.0,D4Thai84:11.0):14.0):15.0);",
                                  "adjustTipHeights","false", "trait",dateTrait, "taxonset",taxonSet);
 
         TreeSlicer treeSlicer = new TreeSlicer();
         treeSlicer.initByName("tree",tree,"type","dates","dates","1950 1965 1970 1980");
 
 
-        /*   tmrca = 41 / 1944, most recent tip = 1985
+        /*   tmrca = 40 / 1944, most recent tip = 1984
 
-             4 intervals at 1980, 1970, 1965, 1950: (5, 15, 20, 35)
+             4 intervals at 1980, 1970, 1965, 1950: (4, 14, 19, 34)
 
          */
 
         Double [] values = treeSlicer.getValues();
-        Double [] expected = {0.0, 5.0, 15.0, 20.0, 35.0};
+        Double [] expected = {0.0, 4.0, 14.0, 19.0, 34.0};
 
         for (int i = 0; i < values.length; i++) {
             //System.out.print(values[i]+"\t");
