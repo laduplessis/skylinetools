@@ -6,6 +6,7 @@ Package of useful utilities and distributions to use with skyline models in BEAS
 - [**Examples**](examples/)
 - [**Unit tests**](test/)
 
+[![Build Status](https://travis-ci.com/laduplessis/skylinetools.svg?branch=master)](https://travis-ci.com/laduplessis/skylinetools)
 
 ## Package contents
 
