@@ -1,7 +1,5 @@
 language: java
 
-install: ant deps
+install: ant build 
 
-script:
-  - ant built
-  - ant test
+script: ant test
