@@ -11,6 +11,24 @@ import junit.framework.TestCase;
 import java.util.List;
 
 /**
+ * This test is to check how bdsky (beast.evolution.speciation.BirthDeathSkylineModel) sets change-point times, depending
+ * on the input.
+ *
+ * There are 5 different ways to set the change-point times:
+ *
+ * 1.) Equally spaced between origin and present
+ *
+ * 2.) Time from the origin to the present:
+ *  a) Absolute times (in the same units as the tree branches)
+ *  b) Relative times (between 0 and 1)
+ *
+ * 3.) Time from the present to the origin (reverse-time):
+ *  a) Absolute times (in the same units as the tree branches)
+ *  b) Relative times (between 0 and 1)
+ *
+ *  The bdsky package itself never tests that this actually works in the expected way.
+ *
+ *
  * Created by dlouis on 06/04/16.
  */
 public class SkylineTimesTest extends TestCase {
