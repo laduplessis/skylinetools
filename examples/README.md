@@ -33,7 +33,8 @@ Tests to compare the result of using TreeSlicer to obtaining the same or similar
 1. `dengue4_bdsky_equidistant5_treeslicer.xml`: 5 intervals for R_e, equally spaced between tmrca and present, sampling proportion 0 before oldest sample.
 2. `dengue4_bdsky_fixeddates_treeslicer.xml`: 5 intervals for R_e at specific fixed dates, sampling proportion 0 before oldest sample.
 3. `dengue4_bdsky_csc_treeslicer.xml`: 2 intervals for R_e, with the shift-date estimated.
-
+4. `dengue4_bdsky_csc_treeslicer_hierarchical.xml`: 2 trees, each with 2 intervals for R_e, with a shared shift-date, which is estimated.
+5. `dengue4_bdsky_equidistant5_treeslicer_hierarchical.xml`: 2 trees, each with the same 3 shared intervals for R_e.
 
 **Comparison xml files (without TreeSlicer)**
 
