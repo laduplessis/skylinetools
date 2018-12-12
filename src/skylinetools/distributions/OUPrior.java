@@ -7,6 +7,7 @@ import beast.core.State;
 import beast.core.parameter.RealParameter;
 import beast.math.distributions.ParametricDistribution;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +18,8 @@ import java.util.Random;
  *  - Check that dimension of timeInput and xInput match
  *  - Add constant to likelihood calculation
  *  - Should sample method be implemented? Shouldn't be too difficult, but this is never used
+ *
+ * To ponder: Should normalization be included? I think not...
  *
  * @author Alexei Drummond.
  */
@@ -48,7 +51,7 @@ public class OUPrior extends Distribution {
 
     public Input<Boolean> logSpace = new Input<>("logspace", "true if prior should be applied to log(x).", false);
 
-    public Input<Boolean> normalize = new Input<>("normalize", "true if times should be normalized such that t[n]-t[0]=1..", false);
+    public Input<Boolean> normalize = new Input<>("normalize", "true if times should be normalized such that t[n]-t[0]=1", false);
 
 
     public double calculateLogP() {
@@ -81,6 +84,8 @@ public class OUPrior extends Distribution {
         if (normalize.get() == true) {
             period = t[t.length-1]-t[0];
         }
+        System.out.println(Arrays.toString(t));
+        System.out.println(period);
 
         for (int i = 1; i <= n; i++) {
 
@@ -92,7 +97,10 @@ public class OUPrior extends Distribution {
             double term = x[i] - mu - (x[i-1]-mu) * Math.exp(-nu*(dt));
 
             logL -= nu / sigsq * (term*term / relterm);
+
+            System.out.print(dt+" + ");
         }
+        System.out.println();
 
         if (x0Prior != null) logL += x0Prior.calcLogP(new Function() {
             @Override

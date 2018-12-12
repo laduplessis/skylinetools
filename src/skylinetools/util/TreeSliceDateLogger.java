@@ -59,16 +59,18 @@ public class TreeSliceDateLogger extends CalculationNode implements Loggable, Fu
         return treeslice.getDimension();
     }
 
+    // Remember to convert height to date!
     @Override
     public double getArrayValue() {
         final TreeSlicer treeslice = treeSliceInput.get();
-        return treeslice.getArrayValue();
+        return treeslice.heightToDate(treeslice.getArrayValue());
     }
 
+    // Remember to convert height to date!
     @Override
     public double getArrayValue(int dim) {
         final TreeSlicer treeslice = treeSliceInput.get();
-        return treeslice.getArrayValue(dim);
+        return treeslice.heightToDate(treeslice.getArrayValue(dim));
     }
 
 
