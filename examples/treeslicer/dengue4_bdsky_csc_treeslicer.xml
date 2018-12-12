@@ -231,9 +231,9 @@
         <log idref="prior"/>
     </logger>
 
-    <!--logger id="treelog" fileName="$(tree).trees" logEvery="1000" mode="tree">
+    <logger id="treelog" fileName="dengue4_bdsky_csc_treeslicer.trees" logEvery="10000" mode="tree">
         <log id="TreeWithMetaDataLogger" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree"/>
-    </logger-->
+    </logger>
 
 </run>
 

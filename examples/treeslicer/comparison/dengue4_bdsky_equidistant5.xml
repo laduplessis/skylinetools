@@ -114,7 +114,7 @@
                                 becomeUninfectiousRate="@becomeUninfectiousRate" 
                                 samplingProportion="@samplingProportion" 
                                 origin="@origin">
-                      <samplingRateChangeTimes spec="RealParameter" value="0 38.0000001"/>
+                      <samplingRateChangeTimes spec="RealParameter" value="38.0000001"/>
                       <reverseTimeArrays spec="BooleanParameter" value="true false true false false"/>
                   </distribution>
 
@@ -227,9 +227,9 @@
         <log idref="prior"/>
     </logger>
 
-    <!--logger id="treelog" fileName="$(tree).trees" logEvery="1000" mode="tree">
+    <logger id="treelog" fileName="dengue4_bdsky_equidistant5.trees" logEvery="10000" mode="tree">
         <log id="TreeWithMetaDataLogger" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree"/>
-    </logger-->
+    </logger>
 
 </run>
 

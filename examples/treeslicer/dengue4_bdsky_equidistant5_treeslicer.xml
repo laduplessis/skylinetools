@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<beast beautitemplate='Standard' beautistatus='' 
+<beast beautitemplate='Standard' beautistatus=''
        namespace="beast.core
                  :beast.evolution.alignment
                  :beast.evolution.tree.coalescent
@@ -10,11 +10,11 @@
                  :beast.evolution.sitemodel
                  :beast.evolution.substitutionmodel
                  :beast.evolution.likelihood
-                 :skylinetools.util" 
+                 :skylinetools.util"
        required="BDSKY v1.3.3" version="2.4">
 
 
-<!-- 
+<!--
       Dengue example with reproductiveNumber shifts between tMRCA and present and sampling proportion set to 0 before the time of the oldest sample.
 -->
 
@@ -51,9 +51,9 @@
 </data>
 
 <!-- Select a slice of the sampling proportion to apply a prior to (can also use ExcludablePrior) -->
-<function spec="beast.core.util.Slice" id="samplingProportionSlice" arg="@samplingProportion" index="1" count="1"/> 
+<function spec="beast.core.util.Slice" id="samplingProportionSlice" arg="@samplingProportion" index="1" count="1"/>
 
-<!-- Convert heights to dates (unnecessary, for testing and comparison only) --> 
+<!-- Convert heights to dates (unnecessary, for testing and comparison only) -->
 <RPNcalculator id="ReSliceDatesRPN" spec="beast.math.statistic.RPNcalculator" expression="1994 ReTreeSlice -">
     <parameter idref="ReTreeSlice"/>
 </RPNcalculator>
@@ -79,7 +79,7 @@
                         D4Tahiti85=1985,
                         D4Thai63=1963,
                         D4Thai78=1978,
-                        D4Thai84=1984                
+                        D4Thai84=1984
                         <taxa id="TaxonSet.Dengue4" spec="TaxonSet">
                           <alignment idref="Dengue4"/>
                         </taxa>
@@ -108,12 +108,12 @@
             <distribution id="prior" spec="util.CompoundDistribution">
 
                   <!-- Treeprior (BDSKY) -->
-                  <distribution id="BirthDeathSkySerial" 
-                                spec="beast.evolution.speciation.BirthDeathSkylineModel" 
+                  <distribution id="BirthDeathSkySerial"
+                                spec="beast.evolution.speciation.BirthDeathSkylineModel"
                                 tree="@Tree"
-                                reproductiveNumber="@reproductiveNumber" 
-                                becomeUninfectiousRate="@becomeUninfectiousRate" 
-                                samplingProportion="@samplingProportion" 
+                                reproductiveNumber="@reproductiveNumber"
+                                becomeUninfectiousRate="@becomeUninfectiousRate"
+                                samplingProportion="@samplingProportion"
                                 origin="@origin">
                       <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice" tree="@Tree" dimension="5" stop="tmrca" includeLast="false"/>
                       <samplingRateChangeTimes spec="TreeSlicer" id="SamplingTreeSlice" tree="@Tree" dimension="2" stop="oldestsample" includeLast="true"/>
@@ -121,13 +121,13 @@
                   </distribution>
 
                   <!-- Treeprior priors -->
-                  <prior id="reproductiveNumberPrior" name="distribution" x="@reproductiveNumber">                      
+                  <prior id="reproductiveNumberPrior" name="distribution" x="@reproductiveNumber">
                         <LogNormal name="distr" M="0" S="1" offset="0.0"/>
-                  </prior>                  
+                  </prior>
                   <prior id="becomeUninfectiousRatePrior" name="distribution" x="@becomeUninfectiousRate">
                         <LogNormal name="distr" M="0" S="1" offset="0.0" meanInRealSpace="false"/>
                   </prior>
-                  <prior id="samplingProportionPrior" name="distribution" x="@samplingProportionSlice">                  
+                  <prior id="samplingProportionPrior" name="distribution" x="@samplingProportionSlice">
                         <Beta name="distr" alpha="2" beta="10"/>
                   </prior>
                   <prior id="originPrior" name="distribution" x="@origin">
@@ -234,9 +234,9 @@
         <log idref="prior"/>
     </logger>
 
-    <!--logger id="treelog" fileName="$(tree).trees" logEvery="1000" mode="tree">
+    <logger id="treelog" fileName="dengue4_bdsky_equidistant5_treeslicer.trees" logEvery="10000" mode="tree">
         <log id="TreeWithMetaDataLogger" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree"/>
-    </logger-->
+    </logger>
 
 </run>
 
