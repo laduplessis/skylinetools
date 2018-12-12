@@ -1,8 +1,0 @@
-<packages>
-    <package name="skylinetools" version="0.1.0"
-        url="https://github.com/laduplessis/skylinetools/archive/0.1.0.zip"
-        projectURL="https://github.com/laduplessis/skylinetools/"
-        description="Utilities and distributions for (birth-death) skyline models.">
-        <depends on="beast2" atleast="2.5" atmost="2.5.9"/>
-    </package>
-</packages>

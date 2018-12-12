@@ -29,9 +29,9 @@ To install Skyline Tools:
 2. Launch the BEAUti application distributed with BEAST.
 3. From the File menu select "Manage Packages".
 4. Click the "Package repositories" button at the bottom of the Package Manager dialog box.
-5. Select "Add URL" and enter the following URL: .
-7. Click the "Done" button, then select "" from the list of packages.
-8. Click the "Install/Upgrade" button. Once installation is complete, restart BEAUti.
+5. Select "Add URL" and enter the following URL: `https://laduplessis.github.io/skylinetools/package.xml`.
+7. Click the "Done" button, then select "skylinetools" from the list of packages.
+8. Click the "Install/Upgrade" button. Once installation is complete, XML files using SkylineTools can be run from BEAST2.
 
 
 ## Citation
