@@ -109,7 +109,7 @@
                                 becomeUninfectiousRate="@becomeUninfectiousRate" 
                                 samplingProportion="@samplingProportion" 
                                 origin="@origin">
-                      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice" tree="@Tree" type="dates" dates="1950 1960 1970 1980 1994"/>
+                      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice" tree="@Tree" type="dates" dates="1950 1960 1970 1980"/>
                       <samplingRateChangeTimes spec="TreeSlicer" id="SamplingTreeSlice" tree="@Tree" dimension="2" stop="oldestsample" includeLast="true"/>
                       <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false true false false"/>
                   </distribution>
