@@ -303,7 +303,7 @@
 
 
 
-      <logger id="tracelog" fileName="dengue4_bdsky_csc_treeslicer_hierarchical.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
+      <logger id="tracelog" fileName="dengue4_bdsky_csc_treeslicer_joint.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
             <log idref="posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>
@@ -347,11 +347,11 @@
             <log idref="prior"/>
       </logger>
 
-      <logger id="treelog.C1" fileName="dengue4_bdsky_csc_treeslicer_hierarchical.C1.trees" logEvery="10000" mode="tree">
+      <logger id="treelog.C1" fileName="dengue4_bdsky_csc_treeslicer_joint.C1.trees" logEvery="10000" mode="tree">
             <log id="TreeWithMetaDataLogger.C1" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.C1"/>
       </logger>
 
-      <logger id="treelog.C2" fileName="dengue4_bdsky_csc_treeslicer_hierarchical.C2.trees" logEvery="10000" mode="tree">
+      <logger id="treelog.C2" fileName="dengue4_bdsky_csc_treeslicer_joint.C2.trees" logEvery="10000" mode="tree">
             <log id="TreeWithMetaDataLogger.C2" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.C2"/>
       </logger>
 
