@@ -17,7 +17,7 @@
       Dengue example with two independent trees and a single reproductiveNumber shift for both trees 
       estimated between 1975 and 1980 as a date.
       
-      Both trees share the same HKY model and clock model (Kappy, frequencies and clock rate)
+      Both trees share the same HKY model and clock model (Kappa, frequencies and clock rate)
       Both trees have the same becoming noninfectious rate
       Each tree has its own reproductive number, sampling proportion and origin
 
@@ -140,28 +140,28 @@
             <distribution id="prior" spec="util.CompoundDistribution">
 
                   <!-- Treeprior C1 (BDSKY) -->
-                  <distribution id="BirthDeathSkySerial.C1" 
-                                spec="beast.evolution.speciation.BirthDeathSkylineModel" 
-                                tree="@Tree.C1"
-                                reproductiveNumber="@reproductiveNumber.C1" 
-                                becomeUninfectiousRate="@becomeUninfectiousRate" 
-                                samplingProportion="@samplingProportion.C1" 
-                                origin="@origin.C1">
-                        <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice.C1" tree="@Tree.C1" dates="@reproductiveNumberChangeDate" type="dates"/>
-                        <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false false false false"/>
-                  </distribution>
+<distribution id="BirthDeathSkySerial.C1" 
+              spec="beast.evolution.speciation.BirthDeathSkylineModel" 
+              tree="@Tree.C1"
+              reproductiveNumber="@reproductiveNumber.C1" 
+              becomeUninfectiousRate="@becomeUninfectiousRate" 
+              samplingProportion="@samplingProportion.C1" 
+              origin="@origin.C1">
+      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice.C1" tree="@Tree.C1" dates="@reproductiveNumberChangeDate" type="dates"/>
+      <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false false false false"/>
+</distribution>
 
-                  <!-- Treeprior C2 (BDSKY) -->
-                  <distribution id="BirthDeathSkySerial.C2" 
-                                spec="beast.evolution.speciation.BirthDeathSkylineModel" 
-                                tree="@Tree.C2"
-                                reproductiveNumber="@reproductiveNumber.C2" 
-                                becomeUninfectiousRate="@becomeUninfectiousRate" 
-                                samplingProportion="@samplingProportion.C2" 
-                                origin="@origin.C2">
-                        <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice.C2" tree="@Tree.C2" dates="@reproductiveNumberChangeDate" type="dates"/>
-                        <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false false false false"/>
-                  </distribution>
+<!-- Treeprior C2 (BDSKY) -->
+<distribution id="BirthDeathSkySerial.C2" 
+              spec="beast.evolution.speciation.BirthDeathSkylineModel" 
+              tree="@Tree.C2"
+              reproductiveNumber="@reproductiveNumber.C2" 
+              becomeUninfectiousRate="@becomeUninfectiousRate" 
+              samplingProportion="@samplingProportion.C2" 
+              origin="@origin.C2">
+      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice.C2" tree="@Tree.C2" dates="@reproductiveNumberChangeDate" type="dates"/>
+      <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false false false false"/>
+</distribution>
 
                   <!-- Treeprior priors -->
                   <prior id="becomeUninfectiousRatePrior" name="distribution" x="@becomeUninfectiousRate">

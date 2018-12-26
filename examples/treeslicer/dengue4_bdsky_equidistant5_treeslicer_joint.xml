@@ -19,7 +19,7 @@
       - Tree C1: 3 change-point times with dates equally spaced between tMRCA and most-recent sample (1984) 
       - Tree C2: Same 3 change-point dates as Tree C1
       
-      Both trees share the same HKY model and clock model (Kappy, frequencies and clock rate)
+      Both trees share the same HKY model and clock model (Kappa, frequencies and clock rate)
       Both trees have the same becoming noninfectious rate
       Each tree has its own reproductive number, sampling proportion and origin
 
