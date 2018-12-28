@@ -115,8 +115,8 @@
                                 becomeUninfectiousRate="@becomeUninfectiousRate"
                                 samplingProportion="@samplingProportion"
                                 origin="@origin">
-                      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice" tree="@Tree" dimension="5" stop="tmrca" includeLast="false"/>
-                      <samplingRateChangeTimes spec="TreeSlicer" id="SamplingTreeSlice" tree="@Tree" dimension="2" stop="oldestsample" includeLast="true"/>
+                      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice" tree="@Tree" dimension="5" to="tmrca" inclusive="false"/>
+                      <samplingRateChangeTimes spec="TreeSlicer" id="SamplingTreeSlice" tree="@Tree" dimension="2" to="oldestsample" inclusive="true"/>
                       <reverseTimeArrays spec="BooleanParameter" value="true false true false false"/>
                   </distribution>
 

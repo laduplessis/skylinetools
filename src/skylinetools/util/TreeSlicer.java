@@ -55,7 +55,7 @@ public class TreeSlicer extends RealParameter {
     protected double tmrca,                 // Height of TMRCA of the tree
                      oldest,                // Height of the oldest sample
                      newest,                // Height of the most recent sample
-                     anchordate;            // Date for translating height to calendar date (most recent sample at time = 0)
+                     presentDate;            // Date for translating height to calendar date (most recent sample at time = 0)
 
     private boolean timesKnown;
 
@@ -123,33 +123,45 @@ public class TreeSlicer extends RealParameter {
 
 
 
+    /* Methods should only be called after anchor times have been updated */
+
     protected double dateToHeight(double date) {
-        return (anchordate - date);
+        return (presentDate - date);
     }
 
     protected double heightToDate(double height) {
-        return (anchordate - height);
+        return (presentDate - height);
     }
 
 
     /**
-     *
-     * Update a few state variables
-     *
+     * Update anchor times in the tree
      *  - tmrca   (height of tmrca if present = 0 ... tmrca_date = present - tmrca
      *  - oldest  (height of the oldest sample)
      *  - newest  (height of the youngest sample - should be 0)
      *
      * O(n) for n nodes
      *
+     * Use getNodesAsArray() instead of getExternalNodes() because it only passes a pointer whereas getExterNodes()
+     * requires constructing an ArrayList (so it is O(n) plus a lot of extra memory operations).
+     *
+     * Unfortunately tree.somethingIsDirty() does NOT appear to work to indicate if anchor times would have changed or
+     * not, so this MUST be recalculated every time the times are updated.
+     *
      * @param tree
      */
     protected void updateAnchorTimes(Tree tree) {
+
+        //double oldtmrca   = tmrca,
+        //       oldoldest  = oldest,
+        //       oldnewest  = newest,
+
         double height;
 
         tmrca = tree.getRoot().getHeight();
 
-        /* This next part is only necessary when tipdate sampling is being done - How to check? */
+        // This next part should only be necessary when tipdates are sampled (How can this be checked?)
+        // May be optimised by skipping the first n-1 nodes, but this way is very secure, though slightly slower
         oldest = 0;
         newest = tmrca;
         for (Node N : tree.getNodesAsArray()) {
@@ -162,22 +174,30 @@ public class TreeSlicer extends RealParameter {
 
                 if (height  < newest) {
                     newest  = height;
-                    anchordate = N.getDate();
+                    presentDate = N.getDate();
                 }
             }
         }
 
+        //boolean somethingHasChanged = (oldtmrca != tmrca) || (oldoldest != oldest) || (oldnewest != newest)
     }
 
 
+    /**
+     * Update the slice times
+     *
+     * Unfortunately tree.somethingIsDirty() does NOT appear to work to indicate if anchor times have changed so
+     * updateAnchortimes() MUST be called.
+     *
+     * @param tree
+     */
     protected void calculateTimes(Tree tree) {
 
         double endtime, step;
 
         /* Update newest, oldest, tmrca */
         updateAnchorTimes(tree);
-        //System.out.println(tmrca+"\t"+oldest+"\t"+heightToDate(oldest)+"\t"+newest+"\t"+anchordate);
-
+        //System.out.println(tmrca+"\t"+oldest+"\t"+heightToDate(oldest)+"\t"+newest+"\t"+presentDate);
 
         if (stop == MRCA) {
             endtime = tmrca;
@@ -197,7 +217,6 @@ public class TreeSlicer extends RealParameter {
             values[i] = i * step;
         }
 
-
         timesKnown = true;
     }
 
@@ -211,7 +230,7 @@ public class TreeSlicer extends RealParameter {
     }
 
 
-    // Override methods to make sure times get recalculated
+    /* Override methods to make sure times get recalculated whenever times are accessed */
 
     @Override
     public Double getValue() {
@@ -252,9 +271,5 @@ public class TreeSlicer extends RealParameter {
         }
         return Arrays.copyOf(values, values.length);
     }
-
-
-
-
 
 }

@@ -24,7 +24,7 @@ public class TreeSlicerTest extends TestCase {
         Tree tree = new TreeParser("((D4Philip56:2.0,(D4Philip64:3.0,D4Philip84:23.0):7.0):10.0,(D4SLanka78:19.0,(D4Thai78:5.0,D4Thai84:11.0):14.0):15.0);",false);
 
         TreeSlicer treeSlicer = new TreeSlicer();
-        treeSlicer.initByName("tree",tree,"stop","tmrca","includeLast","false","dimension","4");
+        treeSlicer.initByName("tree",tree,"to","tmrca","inclusive","false","dimension","4");
 
 
         /*   tmrca = 40 / 1944, most recent tip = 1984
@@ -54,7 +54,7 @@ public class TreeSlicerTest extends TestCase {
         Tree tree = new TreeParser("((((D4Mexico84:5.0,D4ElSal94:15.0):1.0,D4PRico86:8.0):1.0,D4Tahiti79:2.0):5.0,D4Indon77:5.0);",false);
 
         TreeSlicer treeSlicer = new TreeSlicer();
-        treeSlicer.initByName("tree",tree,"stop","tmrca","includeLast","false","dimension","4");
+        treeSlicer.initByName("tree",tree,"to","tmrca","inclusive","false","dimension","4");
 
         /*   tmrca = 22 / 1972, most recent tip = 1994
 
@@ -86,7 +86,7 @@ public class TreeSlicerTest extends TestCase {
         Tree tree = new TreeParser("((D4Philip56:2.0,(D4Philip64:3.0,D4Philip84:23.0):7.0):10.0,(D4SLanka78:19.0,(D4Thai78:5.0,D4Thai84:11.0):14.0):15.0);",false);
 
         TreeSlicer treeSlicer = new TreeSlicer();
-        treeSlicer.initByName("tree",tree,"stop","tmrca","includeLast","true","dimension","4");
+        treeSlicer.initByName("tree",tree,"to","tmrca","inclusive","true","dimension","4");
 
 
         /*   tmrca = 40 / 1944, most recent tip = 1984
@@ -118,7 +118,7 @@ public class TreeSlicerTest extends TestCase {
         Tree tree = new TreeParser("((((D4Mexico84:5.0,D4ElSal94:15.0):1.0,D4PRico86:8.0):1.0,D4Tahiti79:2.0):5.0,D4Indon77:5.0);",false);
 
         TreeSlicer treeSlicer = new TreeSlicer();
-        treeSlicer.initByName("tree",tree,"stop","tmrca","includeLast","true","dimension","4");
+        treeSlicer.initByName("tree",tree,"to","tmrca","inclusive","true","dimension","4");
 
         /*   tmrca = 22 / 1972, most recent tip = 1994
 
@@ -149,7 +149,7 @@ public class TreeSlicerTest extends TestCase {
         Tree tree = new TreeParser("((D4Philip56:2.0,(D4Philip64:3.0,D4Philip84:23.0):7.0):10.0,(D4SLanka78:19.0,(D4Thai78:5.0,D4Thai84:11.0):14.0):15.0);",false);
 
         TreeSlicer treeSlicer = new TreeSlicer();
-        treeSlicer.initByName("tree",tree,"stop","oldestSample","includeLast","true","dimension","5");
+        treeSlicer.initByName("tree",tree,"to","oldestSample","inclusive","true","dimension","5");
 
 
         /*   oldest tip = 28 / 1956, most recent tip = 0 / 1984
@@ -181,7 +181,7 @@ public class TreeSlicerTest extends TestCase {
         Tree tree = new TreeParser("((((D4Mexico84:5.0,D4ElSal94:15.0):1.0,D4PRico86:8.0):1.0,D4Tahiti79:2.0):5.0,D4Indon77:5.0);",false);
 
         TreeSlicer treeSlicer = new TreeSlicer();
-        treeSlicer.initByName("tree",tree,"stop","oldestSample","includeLast","true","dimension","5");
+        treeSlicer.initByName("tree",tree,"to","oldestSample","inclusive","true","dimension","5");
 
         /*   tmrca = 17 / 1977, most recent tip = 1994
 
