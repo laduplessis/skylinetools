@@ -27,8 +27,6 @@ import java.util.List;
  */
 public class TreeSlicer extends RealParameter {
 
-    final double eps = 1e-7;
-
     public Input<Tree> treeInput =
             new Input<>("tree", "Tree over which to calculate the slice", Input.Validate.REQUIRED);
 
@@ -41,21 +39,72 @@ public class TreeSlicer extends RealParameter {
 
 
     /* Anchor times on the tree */
-    private enum Anchor {
+    protected enum Anchor {
+
         PRESENT,       // The present, or the time of the most recent sample, should be at height 0.0
         OLDESTSAMPLE,  // The height of the oldest sample in the tree, 0 <= OLDESTSAMPLE <= TMRCA
         TMRCA;         // The height of the tree (tMRCA)
+
+
+        private double height, date;
+
+        public double getHeight() { return this.height; }
+
+        public double getDate() { return this.date; }
+
+
+        /**
+         * Update anchor times in the tree
+         *
+         * O(n) for n nodes
+         *
+         * Use getNodesAsArray() instead of getExternalNodes() because it only passes a pointer whereas getExterNodes()
+         * requires constructing an ArrayList (so it is O(n) plus a lot of extra memory operations).
+         *
+         * Unfortunately tree.somethingIsDirty() does NOT appear to work to indicate if anchor times would have changed or
+         * not, so this MUST be recalculated every time the times are updated.
+         *
+         * @param tree
+         */
+        public static void update(Tree tree) {
+
+            final double EPS = 1e-7;
+
+            double height;
+
+            TMRCA.height = tree.getRoot().getHeight();
+            TMRCA.date   = tree.getRoot().getDate();
+
+            // This next part should only be necessary when tipdates are sampled (How can this be checked?)
+            // May be optimised by skipping the first n-1 nodes, but this way is very secure, though slightly slower
+            OLDESTSAMPLE.height = 0;
+            PRESENT.height = TMRCA.height;
+            for (Node N : tree.getNodesAsArray()) {
+                if (N.isLeaf()) {
+                    height = N.getHeight();
+
+                    if (height > OLDESTSAMPLE.height) {
+                        // Need to adjust so BDSKY likelihood nonzero
+                        OLDESTSAMPLE.height = height+EPS;
+                        OLDESTSAMPLE.date   = N.getDate();
+                    }
+
+                    if (height  < PRESENT.height) {
+                        PRESENT.height  = height;
+                        PRESENT.date    = N.getDate();
+                    }
+                }
+            }
+
+        }
+
     }
+    /* End Anchor times */
 
 
     protected Tree tree;
     protected Anchor stop;
     protected boolean inclusive;
-    protected double tmrca,                 // Height of TMRCA of the tree
-                     oldest,                // Height of the oldest sample
-                     newest,                // Height of the most recent sample
-                     presentDate;           // Date for translating height to calendar date (most recent sample at time = 0)
-
     protected boolean timesKnown;
 
 
@@ -72,7 +121,7 @@ public class TreeSlicer extends RealParameter {
 
         /* Read tree */
         tree      = treeInput.get();
-        updateAnchorTimes(tree);
+        Anchor.update(tree);
 
 
         /* Read dimension of the slice */
@@ -95,14 +144,6 @@ public class TreeSlicer extends RealParameter {
             throw new IllegalArgumentException("Error in "+this.getID()+": Unknown anchor point ("+stopStr+") for to input.");
         }
 
-        /*
-        if (stopStr.equals("tmrca")) {
-            stop = AnchorTime.TMRCA;
-        } else if (stopStr.equals("oldestsample")) {
-            stop = AnchorTime.OLDESTSAMPLE;
-        } else
-            throw new IllegalArgumentException("Error in "+this.getID()+": Unknown anchor point ("+stopStr+") for to input.");
-        */
 
         /* Include the final anchor point as a breakpoint */
         inclusive = inclusiveInput.get();
@@ -135,64 +176,15 @@ public class TreeSlicer extends RealParameter {
     /* Methods should only be called after anchor times have been updated */
 
     protected double dateToHeight(double date) {
-        return (presentDate - date);
+        return (Anchor.PRESENT.getDate() - date);
     }
 
     protected double heightToDate(double height) {
-        return (presentDate - height);
+        return (Anchor.PRESENT.getDate() - height);
     }
 
 
-    /**
-     * Update anchor times in the tree
-     *  - tmrca   (height of tmrca if present = 0 ... tmrca_date = present - tmrca
-     *  - oldest  (height of the oldest sample)
-     *  - newest  (height of the youngest sample - should be 0)
-     *
-     * O(n) for n nodes
-     *
-     * Use getNodesAsArray() instead of getExternalNodes() because it only passes a pointer whereas getExterNodes()
-     * requires constructing an ArrayList (so it is O(n) plus a lot of extra memory operations).
-     *
-     * Unfortunately tree.somethingIsDirty() does NOT appear to work to indicate if anchor times would have changed or
-     * not, so this MUST be recalculated every time the times are updated.
-     *
-     * @param tree
-     */
-    protected void updateAnchorTimes(Tree tree) {
-
-        //double oldtmrca   = tmrca,
-        //       oldoldest  = oldest,
-        //       oldnewest  = newest,
-
-        double height;
-
-        tmrca = tree.getRoot().getHeight();
-
-        // This next part should only be necessary when tipdates are sampled (How can this be checked?)
-        // May be optimised by skipping the first n-1 nodes, but this way is very secure, though slightly slower
-        oldest = 0;
-        newest = tmrca;
-        for (Node N : tree.getNodesAsArray()) {
-            if (N.isLeaf()) {
-                height = N.getHeight();
-
-                if (height > oldest) {
-                    oldest = height;
-                }
-
-                if (height  < newest) {
-                    newest  = height;
-                    presentDate = N.getDate();
-                }
-            }
-        }
-
-        //boolean somethingHasChanged = (oldtmrca != tmrca) || (oldoldest != oldest) || (oldnewest != newest)
-    }
-
-
-    /**
+   /**
      * Update the slice times
      *
      * Unfortunately tree.somethingIsDirty() does NOT appear to work to indicate if anchor times have changed so
@@ -204,20 +196,13 @@ public class TreeSlicer extends RealParameter {
 
         double endTime, stepSize;
 
-        /* Update newest, oldest, tmrca */
-        updateAnchorTimes(tree);
-        //System.out.println(tmrca+"\t"+oldest+"\t"+heightToDate(oldest)+"\t"+newest+"\t"+presentDate);
+        /* Update anchor times */
+        Anchor.update(tree);
+        //for (Anchor a : Anchor.values()) {
+        //    System.out.println(a.toString()+"\t"+a.getHeight()+"\t"+a.getDate());
+        //}
 
-        switch (stop) {
-            case TMRCA        : endTime = tmrca;
-                                break;
-            case OLDESTSAMPLE : endTime = oldest + eps;
-                                break;
-            default           : endTime = 1.0;
-                                break;
-        }
-
-
+        endTime = stop.getHeight();
         if (inclusive)
             stepSize = endTime / (getDimension() - 1);
         else
@@ -230,6 +215,7 @@ public class TreeSlicer extends RealParameter {
 
         timesKnown = true;
     }
+
 
     @Override
     protected boolean requiresRecalculation() {
