@@ -33,26 +33,25 @@ import java.util.List;
  */
 public class TreeSlicer extends RealParameter {
 
-    final static int MRCA          = 0,
-                     LASTSAMPLE    = 1,
-                     EQUIDISTANT   = 2,
-                     DATES         = 3;
+    final static int PRESENT       = 0,
+                     MRCA          = 1,
+                     LASTSAMPLE    = 2;
 
     final double eps = 1e-7;
 
     public Input<Tree> treeInput =
             new Input<>("tree", "Tree over which to calculate the slice", Input.Validate.REQUIRED);
 
-    public Input<String> stopInput =
-            new Input<>("stop", "Breakpoint to stop the slicing intervals (tmrca/oldestsample)", "tmrca");
+    public Input<String> toInput =
+            new Input<>("to", "Anchor point to stop the slicing intervals (tmrca/oldestsample)", "tmrca");
 
-    public Input<Boolean> includeLastInput =
-            new Input<>("includeLast", "Include the last breakpoint (stopping criterion) into the vector", true);
+    public Input<Boolean> inclusiveInput =
+            new Input<>("inclusive", "Include the final anchor point (to criterion) in the vector",true);
 
 
     protected Tree tree;
     protected int stop;
-    protected boolean includeLast;
+    protected boolean inclusive;
     protected double tmrca,                 // Height of TMRCA of the tree
                      oldest,                // Height of the oldest sample
                      newest,                // Height of the most recent sample
@@ -71,51 +70,41 @@ public class TreeSlicer extends RealParameter {
     public void initAndValidate() {
 
         int dimension;
-        String stopStr, typeStr;
+        String stopStr;
 
         /* Read tree */
         tree      = treeInput.get();
         updateAnchorTimes(tree);
 
-        // Not necessary
-        /* Set anchordate to date of the newest node in the tree
-        double minheight = tree.getRoot().getHeight();
-        for (Node N : tree.getNodesAsArray()) {
-            if (N.getHeight() <= minheight) {
-                anchordate = N.getDate();
-                minheight  = N.getHeight();
-            }
-        }*/
 
-
+        /* Read dimension of the slice */
         dimension = dimensionInput.get();
 
-        if (stopInput.get() != null)
-            stopStr = stopInput.get().toLowerCase().trim();
+
+        /* Read to input (where to end slice) */
+        if (toInput.get() != null)
+            stopStr = toInput.get().toLowerCase().trim();
         else
             stopStr = "tmrca";
 
-
-        /* Set stop criterion */
         if (stopStr.equals("tmrca")) {
             stop = MRCA;
         } else if (stopStr.equals("oldestsample")) {
             stop = LASTSAMPLE;
         } else
-            throw new IllegalArgumentException("Error in "+this.getID()+": Unknown stop criterion!");
-
-        /* Merge last two intervals? */
-        if (includeLastInput.get() != null)
-            includeLast = includeLastInput.get();
+            throw new IllegalArgumentException("Error in "+this.getID()+": Unknown anchor point ("+stopStr+") for to input.");
 
 
-        /* Initialise values */
+        /* Include the final anchor point as a breakpoint */
+        inclusive = inclusiveInput.get();
+
+
+        /* Initialise arrays */
         values = new Double[dimension];
         storedValues = new Double[dimension];
-
         calculateTimes(tree);
-
         // System.out.println(this.ID+"\t"+this.getDimension());
+
 
         // Initialization accounting (not really used)
         // Don't want to use super.initAndValidate() because we're doing something else with the values
@@ -198,7 +187,7 @@ public class TreeSlicer extends RealParameter {
             endtime = 1.0;
 
 
-        if (includeLast)
+        if (inclusive)
             step = endtime / (getDimension() - 1);
         else
             step = endtime / (getDimension());
