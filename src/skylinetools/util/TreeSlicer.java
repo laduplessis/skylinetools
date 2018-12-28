@@ -16,12 +16,10 @@ import java.util.List;
  *
  * Base TreeSlicer class
  *
- * Slices tree between stopInput and the present into dimension equidistant intervals
- *
- *
- * Output either in height (from most recent tip) or in dates
+ * Equidistant slices between present and an anchor point on the tree.
  *
  * The treeslice is anchored from the newest date in the tree, thus if the tipdates are sampled this should not be used
+ * (should be fine, if the newest date is updated)
  *
  *
  * Input dates always have dimension one less than the treeslicer itself (unless the last date is equal to the most recent tip).
@@ -51,21 +49,14 @@ public class TreeSlicer extends RealParameter {
     public Input<Boolean> includeLastInput =
             new Input<>("includeLast", "Include the last breakpoint (stopping criterion) into the vector", true);
 
-    public Input<String> typeInput =
-            new Input<>("type", "Type of slice (equidistant/dates)", "equidistant");
-
-    public Input<Function> datesInput =
-            new Input<>("dates", "Dates at which to slice the tree");
 
     protected Tree tree;
-    protected int stop, type;
+    protected int stop;
     protected boolean includeLast;
     protected double tmrca,                 // Height of TMRCA of the tree
                      oldest,                // Height of the oldest sample
                      newest,                // Height of the most recent sample
                      anchordate;            // Date for translating height to calendar date (most recent sample at time = 0)
-    protected double [] dates;              // Dates of the slice
-
 
     private boolean timesKnown;
 
@@ -96,54 +87,27 @@ public class TreeSlicer extends RealParameter {
             }
         }*/
 
-        typeStr = typeInput.get().toLowerCase().trim();
 
-        if (typeStr.equals("dates")) {
+        dimension = dimensionInput.get();
 
-            /* Read input dates */
+        if (stopInput.get() != null)
+            stopStr = stopInput.get().toLowerCase().trim();
+        else
+            stopStr = "tmrca";
 
-            type = DATES;
 
-            updateDates();
-            if (dates[dates.length-1] == anchordate) {
-                dimension = dates.length;
-            } else
-                dimension = dates.length+1;
-
-            // this.setDimension();
-
-            dimensionInput.setValue(dimension, this);
-
+        /* Set stop criterion */
+        if (stopStr.equals("tmrca")) {
+            stop = MRCA;
+        } else if (stopStr.equals("oldestsample")) {
+            stop = LASTSAMPLE;
         } else
-        if (typeStr.equals("equidistant")) {
+            throw new IllegalArgumentException("Error in "+this.getID()+": Unknown stop criterion!");
 
-            /* Read stop criterion */
+        /* Merge last two intervals? */
+        if (includeLastInput.get() != null)
+            includeLast = includeLastInput.get();
 
-            type = EQUIDISTANT;
-
-            dimension = dimensionInput.get();
-
-            if (stopInput.get() != null)
-                stopStr = stopInput.get().toLowerCase().trim();
-            else
-                stopStr = "tmrca";
-
-
-            /* Set stop criterion */
-            if (stopStr.equals("tmrca")) {
-                stop = MRCA;
-            } else if (stopStr.equals("oldestsample")) {
-                stop = LASTSAMPLE;
-            } else
-                throw new IllegalArgumentException("Error in "+this.getID()+": Unknown stop criterion!");
-
-            /* Merge last two intervals? */
-            if (includeLastInput.get() != null)
-                includeLast = includeLastInput.get();
-
-
-        } else
-            throw new IllegalArgumentException("Error in "+this.getID()+": Unknown type of treeslice!");
 
         /* Initialise values */
         values = new Double[dimension];
@@ -216,11 +180,6 @@ public class TreeSlicer extends RealParameter {
 
     }
 
-    protected void updateDates() {
-        dates = datesInput.get().getDoubleValues();
-        HeapSort.sort(dates);
-    }
-
 
     protected void calculateTimes(Tree tree) {
 
@@ -230,34 +189,23 @@ public class TreeSlicer extends RealParameter {
         updateAnchorTimes(tree);
         //System.out.println(tmrca+"\t"+oldest+"\t"+heightToDate(oldest)+"\t"+newest+"\t"+anchordate);
 
-        if (type == DATES) {
 
-            updateDates();
-
-            for (int i = 1; i < getDimension(); i++)
-                values[values.length - i] = Math.max(0.0, dateToHeight(dates[i - 1]));
-            values[0] = 0.0;
-
-        } else {
-
-            if (stop == MRCA) {
-                endtime = tmrca;
-            } else if (stop == LASTSAMPLE) {
-                endtime = oldest + eps;
-            } else
-                endtime = 1.0;
+        if (stop == MRCA) {
+            endtime = tmrca;
+        } else if (stop == LASTSAMPLE) {
+            endtime = oldest + eps;
+        } else
+            endtime = 1.0;
 
 
-            if (includeLast)
-                step = endtime / (getDimension() - 1);
-            else
-                step = endtime / (getDimension());
+        if (includeLast)
+            step = endtime / (getDimension() - 1);
+        else
+            step = endtime / (getDimension());
 
 
-            for (int i = 0; i < getDimension(); i++) {
-                values[i] = i * step;
-            }
-
+        for (int i = 0; i < getDimension(); i++) {
+            values[i] = i * step;
         }
 
 
