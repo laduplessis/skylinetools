@@ -5,6 +5,8 @@ import beast.core.Input;
 import beast.evolution.tree.Tree;
 import beast.util.HeapSort;
 
+import java.util.Arrays;
+
 /**
  * TreeSlicer class that slices a tree at fixed calendar dates
  *
