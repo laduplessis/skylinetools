@@ -13,19 +13,13 @@ import java.util.List;
 
 
 /**
- *
  * Base TreeSlicer class
  *
  * Equidistant slices between present and an anchor point on the tree.
  *
- * The treeslice is anchored from the newest date in the tree, thus if the tipdates are sampled this should not be used
- * (should be fine, if the newest date is updated)
- *
- *
  * Input dates always have dimension one less than the treeslicer itself (unless the last date is equal to the most recent tip).
  * (Since the last value in the slice has to be 0 (i.e. the most recent tip in the tree).
  *
- * Add flag to limit the biggest interval time to tmrca?
  *
  * @author Louis du Plessis
  *         Date: 2018/02/12
@@ -57,9 +51,8 @@ public class TreeSlicer extends RealParameter {
                      newest,                // Height of the most recent sample
                      presentDate;            // Date for translating height to calendar date (most recent sample at time = 0)
 
-    private boolean timesKnown;
+    protected boolean timesKnown;
 
-    //Function outputDates;
 
     // Override input rule of RealParameter (base class)
     public TreeSlicer() {
@@ -193,28 +186,28 @@ public class TreeSlicer extends RealParameter {
      */
     protected void calculateTimes(Tree tree) {
 
-        double endtime, step;
+        double endTime, stepSize;
 
         /* Update newest, oldest, tmrca */
         updateAnchorTimes(tree);
         //System.out.println(tmrca+"\t"+oldest+"\t"+heightToDate(oldest)+"\t"+newest+"\t"+presentDate);
 
         if (stop == MRCA) {
-            endtime = tmrca;
+            endTime = tmrca;
         } else if (stop == LASTSAMPLE) {
-            endtime = oldest + eps;
+            endTime = oldest + eps;
         } else
-            endtime = 1.0;
+            endTime = 1.0;
 
 
         if (inclusive)
-            step = endtime / (getDimension() - 1);
+            stepSize = endTime / (getDimension() - 1);
         else
-            step = endtime / (getDimension());
+            stepSize = endTime / (getDimension());
 
 
         for (int i = 0; i < getDimension(); i++) {
-            values[i] = i * step;
+            values[i] = i * stepSize;
         }
 
         timesKnown = true;

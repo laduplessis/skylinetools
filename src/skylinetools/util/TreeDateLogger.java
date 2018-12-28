@@ -20,9 +20,9 @@ import java.io.PrintStream;
  */
 public class TreeDateLogger extends CalculationNode implements Loggable, Function {
 
-    final public Input<Tree> treeInput = new Input<>("tree", "tree to report dates for.", Input.Validate.REQUIRED);
+    final public Input<Tree> treeInput = new Input<>("tree", "Tree to report dates for.", Input.Validate.REQUIRED);
 
-    final public Input<RealParameter> parameterInput = new Input<>("parameter", "parameter to report dates for on tree.", Input.Validate.OPTIONAL);
+    final public Input<RealParameter> parameterInput = new Input<>("parameter", "Parameter to report dates for on tree.", Input.Validate.OPTIONAL);
 
     int dim;
 

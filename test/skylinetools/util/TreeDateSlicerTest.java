@@ -16,12 +16,12 @@ import java.util.List;
  * @author Louis du Plessis
  *         Date: 2018/07/10
  */
-public class TreeSlicerDatesTest extends TestCase {
+public class TreeDateSlicerTest extends TestCase {
 
     @Test
     public void testSliceTMRCA1() {
 
-        System.out.println("TreeSlicer: Slice at specific years (tree 1)");
+        System.out.println("TreeDateSlicer: Slice at specific years (tree 1)");
 
 
 
@@ -47,8 +47,8 @@ public class TreeSlicerDatesTest extends TestCase {
         tree.initByName("newick","((D4Philip56:2.0,(D4Philip64:3.0,D4Philip84:23.0):7.0):10.0,(D4SLanka78:19.0,(D4Thai78:5.0,D4Thai84:11.0):14.0):15.0);",
                                  "adjustTipHeights","false", "trait",dateTrait, "taxonset",taxonSet);
 
-        TreeSlicer treeSlicer = new TreeSlicer();
-        treeSlicer.initByName("tree",tree,"type","dates","dates","1950 1965 1970 1980");
+        TreeSlicer treeSlicer = new TreeDateSlicer();
+        treeSlicer.initByName("tree",tree,"dates","1950 1965 1970 1980");
 
 
         /*   tmrca = 40 / 1944, most recent tip = 1984

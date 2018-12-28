@@ -8,6 +8,8 @@ import beast.core.Loggable;
 import java.io.PrintStream;
 
 /**
+ * Class to convert the interval times of a TreeSlicer object into calendar dates
+ * Can be logged or just used as a CalculationNode
  *
  * @author Louis du Plessis
  *         Date: 2018/02/12
@@ -16,7 +18,7 @@ import java.io.PrintStream;
 public class TreeSliceDateLogger extends CalculationNode implements Loggable, Function {
 
     final public Input<TreeSlicer> treeSliceInput =
-            new Input<>("treeSlice", "Tree slicer to log dates for", Input.Validate.REQUIRED);
+            new Input<>("treeSlice", "TreeSlicer to log dates for", Input.Validate.REQUIRED);
 
     @Override
     public void initAndValidate() {
