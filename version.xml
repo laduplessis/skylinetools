@@ -1,4 +1,4 @@
-<addon name="skylinetools" version="0.1.0">
+<addon name="skylinetools" version="0.2.0">
             <depends on="beast2" atleast="2.5.0"/>
             <depends on="BDSKY" atleast="1.4.0"/>
 
