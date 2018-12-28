@@ -27,10 +27,6 @@ import java.util.List;
  */
 public class TreeSlicer extends RealParameter {
 
-    final static int PRESENT       = 0,
-                     MRCA          = 1,
-                     LASTSAMPLE    = 2;
-
     final double eps = 1e-7;
 
     public Input<Tree> treeInput =
@@ -43,13 +39,22 @@ public class TreeSlicer extends RealParameter {
             new Input<>("inclusive", "Include the final anchor point (to criterion) in the vector",true);
 
 
+
+    /* Anchor times on the tree */
+    private enum Anchor {
+        PRESENT,       // The present, or the time of the most recent sample, should be at height 0.0
+        OLDESTSAMPLE,  // The height of the oldest sample in the tree, 0 <= OLDESTSAMPLE <= TMRCA
+        TMRCA;         // The height of the tree (tMRCA)
+    }
+
+
     protected Tree tree;
-    protected int stop;
+    protected Anchor stop;
     protected boolean inclusive;
     protected double tmrca,                 // Height of TMRCA of the tree
                      oldest,                // Height of the oldest sample
                      newest,                // Height of the most recent sample
-                     presentDate;            // Date for translating height to calendar date (most recent sample at time = 0)
+                     presentDate;           // Date for translating height to calendar date (most recent sample at time = 0)
 
     protected boolean timesKnown;
 
@@ -76,17 +81,28 @@ public class TreeSlicer extends RealParameter {
 
         /* Read to input (where to end slice) */
         if (toInput.get() != null)
-            stopStr = toInput.get().toLowerCase().trim();
+            stopStr = toInput.get().toUpperCase().trim();
         else
-            stopStr = "tmrca";
+            stopStr = "TMRCA";
 
+        stop = null;
+        for (Anchor a : Anchor.values()) {
+            if (Anchor.valueOf(stopStr) == a) {
+                stop = a;
+            }
+        }
+        if (stop == null) {
+            throw new IllegalArgumentException("Error in "+this.getID()+": Unknown anchor point ("+stopStr+") for to input.");
+        }
+
+        /*
         if (stopStr.equals("tmrca")) {
-            stop = MRCA;
+            stop = AnchorTime.TMRCA;
         } else if (stopStr.equals("oldestsample")) {
-            stop = LASTSAMPLE;
+            stop = AnchorTime.OLDESTSAMPLE;
         } else
             throw new IllegalArgumentException("Error in "+this.getID()+": Unknown anchor point ("+stopStr+") for to input.");
-
+        */
 
         /* Include the final anchor point as a breakpoint */
         inclusive = inclusiveInput.get();
@@ -192,12 +208,14 @@ public class TreeSlicer extends RealParameter {
         updateAnchorTimes(tree);
         //System.out.println(tmrca+"\t"+oldest+"\t"+heightToDate(oldest)+"\t"+newest+"\t"+presentDate);
 
-        if (stop == MRCA) {
-            endTime = tmrca;
-        } else if (stop == LASTSAMPLE) {
-            endTime = oldest + eps;
-        } else
-            endTime = 1.0;
+        switch (stop) {
+            case TMRCA        : endTime = tmrca;
+                                break;
+            case OLDESTSAMPLE : endTime = oldest + eps;
+                                break;
+            default           : endTime = 1.0;
+                                break;
+        }
 
 
         if (inclusive)
