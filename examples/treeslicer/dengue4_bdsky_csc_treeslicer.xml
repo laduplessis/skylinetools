@@ -109,7 +109,7 @@
                                 becomeUninfectiousRate="@becomeUninfectiousRate" 
                                 samplingProportion="@samplingProportion" 
                                 origin="@origin">
-                      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice" tree="@Tree" value="1" dates="@reproductiveNumberChangeDate" type="dates"/>
+                      <birthRateChangeTimes spec="TreeDateSlicer" id="ReTreeSlice" tree="@Tree" dates="@reproductiveNumberChangeDate"/>
                       <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false false false false"/>
                   </distribution>
 

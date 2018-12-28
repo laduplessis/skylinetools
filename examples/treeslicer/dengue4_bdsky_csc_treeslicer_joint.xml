@@ -147,7 +147,7 @@
               becomeUninfectiousRate="@becomeUninfectiousRate" 
               samplingProportion="@samplingProportion.C1" 
               origin="@origin.C1">
-      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice.C1" tree="@Tree.C1" dates="@reproductiveNumberChangeDate" type="dates"/>
+      <birthRateChangeTimes spec="TreeDateSlicer" id="ReTreeSlice.C1" tree="@Tree.C1" dates="@reproductiveNumberChangeDate"/>
       <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false false false false"/>
 </distribution>
 
@@ -159,7 +159,7 @@
               becomeUninfectiousRate="@becomeUninfectiousRate" 
               samplingProportion="@samplingProportion.C2" 
               origin="@origin.C2">
-      <birthRateChangeTimes spec="TreeSlicer" id="ReTreeSlice.C2" tree="@Tree.C2" dates="@reproductiveNumberChangeDate" type="dates"/>
+      <birthRateChangeTimes spec="TreeDateSlicer" id="ReTreeSlice.C2" tree="@Tree.C2" dates="@reproductiveNumberChangeDate"/>
       <reverseTimeArrays spec="beast.core.parameter.BooleanParameter" value="true false false false false"/>
 </distribution>
 

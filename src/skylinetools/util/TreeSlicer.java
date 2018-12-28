@@ -176,10 +176,12 @@ public class TreeSlicer extends RealParameter {
     /* Methods should only be called after anchor times have been updated */
 
     protected double dateToHeight(double date) {
+        Anchor.update(tree);
         return (Anchor.PRESENT.getDate() - date);
     }
 
     protected double heightToDate(double height) {
+        Anchor.update(tree);
         return (Anchor.PRESENT.getDate() - height);
     }
 
