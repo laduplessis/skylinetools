@@ -114,7 +114,7 @@
                                 becomeUninfectiousRate="@becomeUninfectiousRate" 
                                 samplingProportion="@samplingProportion" 
                                 origin="@origin">
-                      <samplingRateChangeTimes spec="RealParameter" value="38.0000001"/>
+                      <samplingRateChangeTimes spec="RealParameter" value="0 38.0000001"/>
                       <reverseTimeArrays spec="BooleanParameter" value="true false true false false"/>
                   </distribution>
 
