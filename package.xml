@@ -5,6 +5,7 @@
         description="Utilities and distributions for (birth-death) skyline models.">
         <depends on="beast2" atleast="2.5" atmost="2.6.9"/>
     </package>
+
     <package name="skylinetools" version="0.2.0"
         url="https://github.com/laduplessis/skylinetools/releases/download/0.2.0/skylinetools.v0.2.0.zip"
         projectURL="https://github.com/laduplessis/skylinetools/"
