@@ -1,9 +1,9 @@
 package skylinetools.util;
 
-import beast.core.CalculationNode;
-import beast.core.Function;
-import beast.core.Input;
-import beast.core.Loggable;
+import beast.base.inference.CalculationNode;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.core.Loggable;
 
 import java.io.PrintStream;
 

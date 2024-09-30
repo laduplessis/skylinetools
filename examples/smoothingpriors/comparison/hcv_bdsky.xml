@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<beast beautitemplate='Standard' beautistatus='' namespace="beast.core
+<beast beautitemplate='Standard' beautistatus='' namespace="beast.pkgmgmt:beast.base.core:beast.base.inference
                                                            :beast.evolution.alignment
                                                            :beast.evolution.tree.coalescent
                                                            :beast.core.util
@@ -12,16 +12,16 @@
 
 
 
-<map name="Uniform" >beast.math.distributions.Uniform</map>
-<map name="Exponential" >beast.math.distributions.Exponential</map>
-<map name="LogNormal" >beast.math.distributions.LogNormalDistributionModel</map>
-<map name="Normal" >beast.math.distributions.Normal</map>
-<map name="Beta" >beast.math.distributions.Beta</map>
-<map name="Gamma" >beast.math.distributions.Gamma</map>
-<map name="LaplaceDistribution" >beast.math.distributions.LaplaceDistribution</map>
-<map name="prior" >beast.math.distributions.Prior</map>
-<map name="InverseGamma" >beast.math.distributions.InverseGamma</map>
-<map name="OneOnX" >beast.math.distributions.OneOnX</map>
+<map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+<map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+<map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+<map name="Normal" >beast.base.inference.distribution.Normal</map>
+<map name="Beta" >beast.base.inference.distribution.Beta</map>
+<map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+<map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+<map name="prior" >beast.base.inference.distribution.Prior</map>
+<map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+<map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
 
 
 <data id="hcv" name="alignment">
@@ -119,21 +119,21 @@
     </state>
 
     <!-- Initial tree -->
-    <init id="RandomTree.t:hcv" spec="beast.evolution.tree.RandomTree" estimate="false" initial="@Tree.t:hcv" taxa="@hcv">
+    <init id="RandomTree.t:hcv" spec="beast.base.evolution.tree.coalescent.RandomTree" estimate="false" initial="@Tree.t:hcv" taxa="@hcv">
         <populationModel id="ConstantPopulation0.t:hcv" spec="ConstantPopulation">
             <parameter id="randomPopSize.t:hcv" name="popSize">1.0</parameter>
         </populationModel>
     </init>
 
 
-    <distribution id="posterior" spec="util.CompoundDistribution">
+    <distribution id="posterior" spec="beast.base.inference.CompoundDistribution">
 
           <!-- Begin prior -->
-          <distribution id="prior" spec="util.CompoundDistribution">
+          <distribution id="prior" spec="beast.base.inference.CompoundDistribution">
 
                <!-- Treeprior (BDSKY contemporary) -->
                <distribution id="BirthDeathSkyContemporary.t:hcv" 
-                             spec="beast.evolution.speciation.BirthDeathSkylineModel" 
+                             spec="bdsky.evolution.speciation.BirthDeathSkylineModel" 
                              tree="@Tree.t:hcv"
                              reproductiveNumber="@reproductiveNumber.t:hcv" 
                              becomeUninfectiousRate="@becomeUninfectiousRate.t:hcv"                                                           
@@ -186,7 +186,7 @@
 
 
           <!-- Begin likelihood -->
-          <distribution id="likelihood" spec="util.CompoundDistribution" useThreads="true">
+          <distribution id="likelihood" spec="beast.base.inference.CompoundDistribution" useThreads="true">
 
                <!-- Alignment likelihood -->
                <distribution id="treeLikelihood.hcv" spec="ThreadedTreeLikelihood" data="@hcv" tree="@Tree.t:hcv">
@@ -202,7 +202,7 @@
                     </siteModel>
 
                     <!-- Clock model (fixed clock-rate) -->
-                    <branchRateModel id="StrictClock.c:hcv" spec="beast.evolution.branchratemodel.StrictClockModel">
+                    <branchRateModel id="StrictClock.c:hcv" spec="beast.base.evolution.branchratemodel.StrictClockModel">
                          <parameter id="clockRate.c:hcv" estimate="false" name="clock.rate">7.9E-4</parameter>
                     </branchRateModel>
 
@@ -267,21 +267,21 @@
         <log idref="rateGT.s:hcv"/>
         <log idref="freqParameter.s:hcv"/>
 
-        <log id="TreeHeight.t:hcv" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:hcv"/>        
+        <log id="TreeHeight.t:hcv" spec="beast.base.evolution.tree.TreeHeightLogger" tree="@Tree.t:hcv"/>        
         <log idref="origin.t:hcv"/>
         <log idref="reproductiveNumber.t:hcv"/>        
         <log idref="becomeUninfectiousRate.t:hcv"/>
         <log idref="rho.t:hcv"/>
         
-        <log id="birth.t:hcv" spec="beast.math.statistic.RPNcalculator" expression="reproductiveNumber.t:hcv becomeUninfectiousRate.t:hcv *">
+        <log id="birth.t:hcv" spec="beast.base.inference.util.RPNcalculator" expression="reproductiveNumber.t:hcv becomeUninfectiousRate.t:hcv *">
             <parameter idref="becomeUninfectiousRate.t:hcv"/>
             <parameter idref="reproductiveNumber.t:hcv"/>
         </log>
-        <log id="death.t:hcv" spec="beast.math.statistic.RPNcalculator" expression="becomeUninfectiousRate.t:hcv 1 samplingProportion.t:hcv - *">
+        <log id="death.t:hcv" spec="beast.base.inference.util.RPNcalculator" expression="becomeUninfectiousRate.t:hcv 1 samplingProportion.t:hcv - *">
             <parameter idref="becomeUninfectiousRate.t:hcv"/>
             <parameter idref="samplingProportion.t:hcv"/>
         </log>
-        <log id="sampling.t:hcv" spec="beast.math.statistic.RPNcalculator" expression="becomeUninfectiousRate.t:hcv samplingProportion.t:hcv *">
+        <log id="sampling.t:hcv" spec="beast.base.inference.util.RPNcalculator" expression="becomeUninfectiousRate.t:hcv samplingProportion.t:hcv *">
             <parameter idref="becomeUninfectiousRate.t:hcv"/>
             <parameter idref="samplingProportion.t:hcv"/>
         </log>
@@ -295,7 +295,7 @@
     </logger>
 
     <!--logger id="treelog.t:hcv" fileName="hcv_bdsky_$(tree).trees" logEvery="4000" mode="tree">
-        <log id="TreeWithMetaDataLogger.t:hcv" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:hcv"/>
+        <log id="TreeWithMetaDataLogger.t:hcv" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:hcv"/>
     </logger-->
 
 </run>

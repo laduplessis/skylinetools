@@ -1,10 +1,10 @@
 package skylinetools.util;
 
-import beast.evolution.alignment.Taxon;
-import beast.evolution.alignment.TaxonSet;
-import beast.evolution.tree.TraitSet;
-import beast.evolution.tree.Tree;
-import beast.util.TreeParser;
+import beast.base.evolution.alignment.Taxon;
+import beast.base.evolution.alignment.TaxonSet;
+import beast.base.evolution.tree.TraitSet;
+import beast.base.evolution.tree.Tree;
+import beast.base.evolution.tree.TreeParser;
 import junit.framework.TestCase;
 import org.junit.Test;
 import skylinetools.parameter.DateParser;

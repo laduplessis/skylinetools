@@ -1,8 +1,8 @@
 package skylinetools.parameter;
 
-import beast.core.Input;
-import beast.core.parameter.RealParameter;
-import beast.core.util.Log;
+import beast.base.core.Input;
+import beast.base.inference.parameter.RealParameter;
+import beast.base.core.Log;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

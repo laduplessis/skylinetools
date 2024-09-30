@@ -1,6 +1,6 @@
 package skylinetools.distributions;
 
-import beast.core.parameter.RealParameter;
+import beast.base.inference.parameter.RealParameter;
 import junit.framework.TestCase;
 import org.junit.Test;
 import skylinetools.distributions.OUPrior;

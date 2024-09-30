@@ -1,11 +1,11 @@
 package skylinetools.distributions;
 
-import beast.core.Distribution;
-import beast.core.Function;
-import beast.core.Input;
-import beast.core.State;
-import beast.core.parameter.RealParameter;
-import beast.math.distributions.ParametricDistribution;
+import beast.base.inference.Distribution;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.inference.State;
+import beast.base.inference.parameter.RealParameter;
+import beast.base.inference.distribution.ParametricDistribution;
 
 import java.util.Arrays;
 import java.util.List;

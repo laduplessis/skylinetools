@@ -1,17 +1,17 @@
 package beast.evolution.speciation;
 
-import beast.core.parameter.BooleanParameter;
-import beast.core.parameter.RealParameter;
-import beast.evolution.speciation.BirthDeathSkylineModelTestHelper;
-import beast.evolution.tree.Tree;
-import beast.util.TreeParser;
+import beast.base.inference.parameter.BooleanParameter;
+import beast.base.inference.parameter.RealParameter;
+import bdsky.evolution.speciation.BirthDeathSkylineModelTestHelper;
+import beast.base.evolution.tree.Tree;
+import beast.base.evolution.tree.TreeParser;
 import org.junit.Test;
 import junit.framework.TestCase;
 
 import java.util.List;
 
 /**
- * This test is to check how bdsky (beast.evolution.speciation.BirthDeathSkylineModel) sets change-point times, depending
+ * This test is to check how bdsky (bdsky.evolution.speciation.BirthDeathSkylineModel) sets change-point times, depending
  * on the input.
  *
  * There are 5 different ways to set the change-point times:

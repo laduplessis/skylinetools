@@ -1,11 +1,11 @@
 package skylinetools.util;
 
-import beast.core.*;
-import beast.core.parameter.Parameter;
-import beast.core.parameter.RealParameter;
-import beast.evolution.tree.Node;
-import beast.evolution.tree.Tree;
-import beast.util.HeapSort;
+import beast.base.core.*;
+import beast.base.inference.parameter.Parameter;
+import beast.base.inference.parameter.RealParameter;
+import beast.base.evolution.tree.Node;
+import beast.base.evolution.tree.Tree;
+import beast.base.util.HeapSort;
 
 import java.util.ArrayList;
 import java.util.Arrays;

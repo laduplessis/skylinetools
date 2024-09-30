@@ -1,5 +1,5 @@
 <beast version='2.0'
-       namespace='beast.core:beast.evolution.speciation:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.math.distributions:beast.evolution.branchratemodel:beast.evolution.likelihood:beast.core.parameter:skylinetools.distributions:skylinetools.parameter'>
+       namespace='beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.speciation:beast.base.util:beast.base.math:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.math.distributions:beast.base.evolution.branchratemodel:beast.base.evolution.likelihood:beast.base.inference.parameter:skylinetools.distributions:skylinetools.parameter'>
 
     <!-- Test XML for the Ornstein-Uhlenbeck prior -->
 

@@ -1,9 +1,9 @@
 package skylinetools.util;
 
-import beast.core.Function;
-import beast.core.Input;
-import beast.evolution.tree.Tree;
-import beast.util.HeapSort;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.evolution.tree.Tree;
+import beast.base.util.HeapSort;
 
 import java.util.Arrays;
 

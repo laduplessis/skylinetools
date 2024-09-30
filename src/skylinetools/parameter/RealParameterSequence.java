@@ -1,8 +1,8 @@
 package skylinetools.parameter;
 
-import beast.core.Description;
-import beast.core.Input;
-import beast.core.parameter.RealParameter;
+import beast.base.core.Description;
+import beast.base.core.Input;
+import beast.base.inference.parameter.RealParameter;
 
 import java.util.Arrays;
 

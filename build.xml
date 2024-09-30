@@ -117,7 +117,7 @@
       <echo>Downloading dependencies...</echo>
 
       <echo>BDSKY:</echo>
-      <get src="https://github.com/BEAST2-Dev/bdsky/releases/download/1.4.0/BDSKY.addon.1.4.0.zip"
+      <get src="https://github.com/BEAST2-Dev/bdsky/releases/download/v1.5.0/BDSKY.v1.5.0.zip"
            dest="${build-lib}/BDSKY.zip"/>
       <mkdir dir="${build-lib}/BDSKY"/>
       <unzip src="${build-lib}/BDSKY.zip" dest="${build-lib}/BDSKY"/>
@@ -191,7 +191,7 @@
 
         <mkdir dir="${pack}"/>
         <mkdir dir="${pack}/examples"/>
-        <mkdir dir="${pack}/templates"/>
+        <mkdir dir="${pack}/fxtemplates"/>
         <mkdir dir="${pack}/lib"/>
         <mkdir dir="${pack}/doc"/>
 
@@ -217,7 +217,7 @@
         </copy>
 
         <mkdir dir="${templates}" />
-        <copy todir="${pack}/templates">
+        <copy todir="${pack}/fxtemplates">
             <fileset dir="${templates}" includes="*.xml" />
         </copy>
 

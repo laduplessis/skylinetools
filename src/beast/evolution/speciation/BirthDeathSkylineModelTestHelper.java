@@ -1,5 +1,6 @@
 package beast.evolution.speciation;
 
+import bdsky.evolution.speciation.BirthDeathSkylineModel;
 import java.util.List;
 
 /**
